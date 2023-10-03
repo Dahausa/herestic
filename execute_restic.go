@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
+	"github.com/pterm/pterm"
 	"github.com/tidwall/gjson"
 )
 
@@ -35,10 +37,12 @@ func loadListOfSnapshots(repo string) ([]byte, error) {
 	return invokeRestic(repo, "snapshots")
 }
 
-func checkResticInPath() error {
-	_, err := exec.Command("restic version").Output()
+func checkIfResticWorks(path string) error {
+	o, err := exec.Command(path, "version").CombinedOutput()
 	if err != nil {
+		pterm.Error.Println(err)
 		return err
 	}
+	pterm.Info.Printfln("Restic comes to life: '%v'", strings.TrimSpace(string(o)))
 	return nil
 }
