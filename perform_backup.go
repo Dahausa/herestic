@@ -1,9 +1,10 @@
 package main
 
 import (
+	"github.com/dahausa/herestic/restic"
 	"github.com/pterm/pterm"
 )
 
-func performBackup(repository string) {
-	pterm.Info.Printfln("Backing up yo! " + repository)
+func performBackup(w restic.ResticWrapper) {
+	pterm.Info.Printfln("Backing up yo! ")
 }

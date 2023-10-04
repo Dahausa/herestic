@@ -1,14 +1,15 @@
 package main
 
 import (
+	"github.com/dahausa/herestic/restic"
 	"github.com/pterm/pterm"
 )
 
-func listSnapshots(repository string) {
+func listSnapshots(w restic.ResticWrapper) {
 	pterm.Info.Printfln("Snapshot list:")
-	b, e := loadListOfSnapshots(repository)
+	_, e := w.LoadListOfSnapshots()
 	if e != nil {
 		pterm.Error.Printfln("Error loading snapshots! %v", e)
 	}
-	pterm.Info.Printfln(string(b))
+
 }
